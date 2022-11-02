@@ -2,7 +2,7 @@ import axios from "axios";
 import { FC, useEffect, useState } from "react";
 import { IUser, IUserProps, User } from "./user";
 
-const WithUser = (Component: FC<IUserProps>) => {
+export const WithUser = (Component: FC<IUserProps>) => {
   const NewComponent = (props) => {
     const [user, setuser] = useState<IUser>(null);
 
@@ -12,7 +12,7 @@ const WithUser = (Component: FC<IUserProps>) => {
         .then((res) => setuser(res.data));
     }, []);
 
-    return <Component {...props} user={user} />;
+    return !user ? "loading" : <Component {...props} user={user} />;
   };
   return <NewComponent />;
 };
